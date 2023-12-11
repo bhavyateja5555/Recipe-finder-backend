@@ -39,6 +39,9 @@ userRoute.post("/logout", async (req, res) => {
     catch (error) {
       return res.status(500).json({ message: "Internal server error" });
     }
-  });
+});
+userRoute.get("/", (req, res) => {
+  res.json({ message: "Welcome to the userRoute endpoint!" });
+});
 
 module.exports = userRoute;
