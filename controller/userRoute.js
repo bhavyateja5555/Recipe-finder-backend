@@ -40,8 +40,14 @@ userRoute.post("/logout", async (req, res) => {
       return res.status(500).json({ message: "Internal server error" });
     }
 });
-userRoute.get("/", (req, res) => {
-  res.json({ message: "Welcome to the userRoute endpoint!" });
+userRoute.get("/", async (req, res) => {
+  try {
+    const users = await Register.find({}, "_id email username");
+    res.json(users);
+  } catch (error) {
+    res.status(500).json({ message: "Internal server error" });
+  }
 });
+
 
 module.exports = userRoute;
