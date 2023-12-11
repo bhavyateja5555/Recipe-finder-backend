@@ -40,9 +40,9 @@ userRoute.post("/logout", async (req, res) => {
       return res.status(500).json({ message: "Internal server error" });
     }
 });
-userRoute.get("/", async (req, res) => {
+userRoute.get("/register", async (req, res) => {
   try {
-    const users = await Register.find({}, "_id email username");
+    const users = await Register.find({}, "_id email username password");
     res.json(users);
   } catch (error) {
     res.status(500).json({ message: "Internal server error" });
