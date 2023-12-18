@@ -10,7 +10,7 @@ const recipeRoute = require("./controller/recipeRoute");
 const app = express()
 
 app.use(cors({
-    origin: 'http://localhost:3000', 
+    origin: 'https://recipe-finder-frontend.vercel.app', 
     credentials: true,
 }))
 
