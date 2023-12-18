@@ -6,16 +6,15 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 
 userRoute.post("/register", async(req,res) => {
-    const {email, username, password} = req.body;
-    const userByEmail = await Register.findOne({email})
+    const {username, password} = req.body;
     const userByusername = await Register.findOne({username})
     const hashpassword = await bcrypt.hash(password,10)
-    if(userByEmail || userByusername){
+    if(userByusername){
         return res.json({message:"User existed"})
     }
-    const newuser = new Register({email, username, password:hashpassword})
+    const newuser = new Register({username, password:hashpassword})
     await newuser.save()
-    return res.json({message:"User registered succeddfully"});
+    return res.json({message:"User registered successfully"});
 })
 userRoute.post("/login", async(req,res) => {
     const {username, password} = req.body;
@@ -40,14 +39,5 @@ userRoute.post("/logout", async (req, res) => {
       return res.status(500).json({ message: "Internal server error" });
     }
 });
-userRoute.get("/register", async (req, res) => {
-  try {
-    const users = await Register.find({}, "_id email username password");
-    res.json(users);
-  } catch (error) {
-    res.status(500).json({ message: "Internal server error" });
-  }
-});
-
 
 module.exports = userRoute;

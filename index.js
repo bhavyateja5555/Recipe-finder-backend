@@ -9,7 +9,10 @@ const recipeRoute = require("./controller/recipeRoute");
 
 const app = express()
 
-app.use(cors())
+app.use(cors({
+    origin: 'http://localhost:3000', 
+    credentials: true,
+}))
 
 app.use(cookieParser())
 app.use(bodyParser.json())
@@ -19,6 +22,7 @@ app.use("/userRoute",userRoute);
 app.use("/api/recipes",recipeRoute);
 
 app.use('/images', express.static(__dirname + '/img'));
+
 
 mongoose.connect("mongodb+srv://test:12345@cluster0.fc8d12u.mongodb.net/recipe",{
     useNewUrlParser: true,
